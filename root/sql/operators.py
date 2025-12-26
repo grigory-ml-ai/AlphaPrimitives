@@ -1,9 +1,6 @@
-import inspect
-
 import pandas as pd
 from sqlalchemy import create_engine
 
-engine = create_engine('postgresql://postgres:postgres@localhost:5432/postgres')
 operators_data = [
     # --- Math: Arithmetic ---
     {
@@ -483,16 +480,6 @@ operators_data = [
         "idempotent": False
     },
     {
-        "operator_name": "cs_clip_outliers",
-        "version": "0.0.1",
-        "arity": 2,
-        "category": "cross_sectional",
-        "description": "Обрезание выбросов на основе кросс-секционного квантиля",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
-    },
-    {
         "operator_name": "cs_divergence",
         "version": "0.0.1",
         "arity": 1,
@@ -523,3 +510,12 @@ operators_data = [
         "idempotent": False
     }
 ]
+
+
+def upload_df():
+    engine = create_engine('postgresql://postgres:postgres@localhost:5432/postgres')
+    df = pd.DataFrame.from_records(operators_data)
+    df.to_sql(con=engine, name='operators', if_exists='append', index=False)
+
+
+# upload_df()

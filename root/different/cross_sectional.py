@@ -37,12 +37,6 @@ def cs_range_normalize(x: pd.DataFrame) -> pd.DataFrame:
     return x.sub(mn, axis=0).div(mx - mn + 1e-8, axis=0)
 
 
-def cs_clip_outliers(x: pd.DataFrame, percentile: float = 0.01) -> pd.DataFrame:
-    lower = x.quantile(percentile, axis=1)
-    upper = x.quantile(1.0 - percentile, axis=1)
-    return x.clip(lower=lower, upper=upper, axis=0)
-
-
 def cs_divergence(x: pd.DataFrame) -> pd.DataFrame:
     mu = x.mean(axis=1)
     return (x.sub(mu, axis=0)) ** 2

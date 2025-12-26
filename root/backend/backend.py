@@ -159,9 +159,6 @@ class PanelBackendPandas:
     def cs_range_normalize(self, x: pd.DataFrame) -> pd.DataFrame:
         return cross_sectional.cs_range_normalize(x)
 
-    def cs_clip_outliers(self, x: pd.DataFrame, percentile: float = 0.01) -> pd.DataFrame:
-        return cross_sectional.cs_clip_outliers(x, percentile)
-
     def cs_divergence(self, x: pd.DataFrame) -> pd.DataFrame:
         return cross_sectional.cs_divergence(x)
 
