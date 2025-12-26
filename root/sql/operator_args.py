@@ -140,7 +140,7 @@ operator_args_data = [
     {"operator_name": "cs_divergence", "position": 1, "data_type": "value"},
 
     {"operator_name": "cs_winsorize", "position": 1, "data_type": "value"},
-    {"operator_name": "cs_winsorize", "position": 2, "data_type": "scalar", "min_value": 0.0, "max_value": 0.5},
+    {"operator_name": "cs_winsorize", "position": 2, "data_type": "scalar", "min_value": 0.0, "max_value": 1},
 
     {"operator_name": "cs_resid", "position": 1, "data_type": "value"},
     {"operator_name": "cs_resid", "position": 2, "data_type": "value"},
@@ -154,4 +154,4 @@ def upload_df():
     df = df_operators.merge(df_args, on='operator_name', how='left').drop(columns=['operator_name'])
     df.to_sql(name='operator_args', con=engine, if_exists='append', index=False)
 
-# upload_df()
+upload_df()
