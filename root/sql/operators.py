@@ -518,4 +518,4 @@ def upload_df():
     df.to_sql(con=engine, name='operators', if_exists='append', index=False)
 
 
-upload_df()
+# upload_df()

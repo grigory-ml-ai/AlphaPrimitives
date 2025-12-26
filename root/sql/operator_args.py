@@ -154,4 +154,4 @@ def upload_df():
     df = df_operators.merge(df_args, on='operator_name', how='left').drop(columns=['operator_name'])
     df.to_sql(name='operator_args', con=engine, if_exists='append', index=False)
 
-upload_df()
+# upload_df()
