@@ -1,6 +1,8 @@
+import inspect
+
 import pandas as pd
 
-from root.different import diff, logical, cross_sectional
+from root.different import difference, logical, cross_sectional
 from root.math import arithmetic, nonlinear
 from root.rolling import (
     moving_average,
@@ -118,10 +120,10 @@ class PanelBackendPandas:
         return rolling_func_sort_based.rolling_deviance(x, w)
 
     def diff(self, x: pd.DataFrame, d: int) -> pd.DataFrame:
-        return diff.diff(x, d)
+        return difference.diff(x, d)
 
     def ts_variance_ratio(self, x: pd.DataFrame, w: int) -> pd.DataFrame:
-        return diff.ts_variance_ratio(x, w)
+        return difference.ts_variance_ratio(x, w)
 
     def greater_than(self, x: pd.DataFrame, y: pd.DataFrame) -> pd.DataFrame:
         return logical.greater_than(x, y)
@@ -167,3 +169,9 @@ class PanelBackendPandas:
 
     def cs_resid(self, x: pd.DataFrame, y: pd.DataFrame) -> pd.DataFrame:
         return cross_sectional.cs_resid(x, y)
+
+
+def apply_from_string(function_name: str, args: dict):
+    backend = PanelBackendPandas()
+    function = list(filter(lambda x: x[0] == function_name, inspect.getmembers(backend)))[0][1]
+    return function(**args)
