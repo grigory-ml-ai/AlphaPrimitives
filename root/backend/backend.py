@@ -122,6 +122,8 @@ class PanelBackendPandas:
     def diff(self, x: pd.DataFrame, d: int) -> pd.DataFrame:
         return difference.diff(x, d)
 
+    def delay(self, x: pd.DataFrame, d: int) -> pd.DataFrame:
+        return difference.delay(x, d)
 
     def greater_than(self, x: pd.DataFrame, y: pd.DataFrame) -> pd.DataFrame:
         return logical.greater_than(x, y)
