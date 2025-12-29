@@ -122,8 +122,6 @@ class PanelBackendPandas:
     def diff(self, x: pd.DataFrame, d: int) -> pd.DataFrame:
         return difference.diff(x, d)
 
-    def ts_variance_ratio(self, x: pd.DataFrame, w: int) -> pd.DataFrame:
-        return difference.ts_variance_ratio(x, w)
 
     def greater_than(self, x: pd.DataFrame, y: pd.DataFrame) -> pd.DataFrame:
         return logical.greater_than(x, y)

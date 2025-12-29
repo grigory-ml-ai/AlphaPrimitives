@@ -346,16 +346,15 @@ operators_data = [
         "idempotent": False
     },
     {
-        "operator_name": "ts_variance_ratio",
+        "operator_name": "delay",
         "version": "0.0.1",
         "arity": 2,
         "category": "timeseries",
-        "description": "Тест отношения дисперсий временного ряда",
+        "description": "Дискретная задержка",
         "commutative": False,
         "associative": False,
         "idempotent": False
     },
-
     # --- Logical ---
     {
         "operator_name": "greater_than",

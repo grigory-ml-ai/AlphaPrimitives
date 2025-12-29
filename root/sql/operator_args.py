@@ -104,8 +104,8 @@ operator_args_data = [
     {"operator_name": "diff", "arg_name": "x", "position": 1, "data_type": "value"},
     {"operator_name": "diff", "arg_name": "d", "position": 2, "data_type": "window", "min_value": 1},
 
-    {"operator_name": "ts_variance_ratio", "arg_name": "x", "position": 1, "data_type": "value"},
-    {"operator_name": "ts_variance_ratio", "arg_name": "w", "position": 2, "data_type": "window", "min_value": 2},
+    {"operator_name": "delay", "arg_name": "x", "position": 1, "data_type": "value"},
+    {"operator_name": "delay", "arg_name": "d", "position": 2, "data_type": "window", "min_value": 1},
 
     # --- Logical ---
     {"operator_name": "greater_than", "arg_name": "x", "position": 1, "data_type": "value"},
