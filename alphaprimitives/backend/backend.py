@@ -2,9 +2,9 @@ import inspect
 
 import pandas as pd
 
-from root.different import difference, logical, cross_sectional
-from root.math import arithmetic, nonlinear
-from root.rolling import (
+from alphaprimitives.different import difference, logical, cross_sectional
+from alphaprimitives.math import arithmetic, nonlinear
+from alphaprimitives.rolling import (
     moving_average,
     rolling_corr,
     rolling_cov,

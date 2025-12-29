@@ -1,6 +1,4 @@
-import numpy as np
 import pandas as pd
-from numba import njit, prange
 import bottleneck as bn
 
 def rolling_var(x: pd.DataFrame, w: int) -> pd.DataFrame:

@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from numba import njit, prange, jit
+from numba import prange, jit
 
 
 @jit(cache=True)
