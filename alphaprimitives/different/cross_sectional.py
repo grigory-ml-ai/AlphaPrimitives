@@ -34,7 +34,7 @@ def cs_zscore(x: pd.DataFrame) -> pd.DataFrame:
 def cs_range_normalize(x: pd.DataFrame) -> pd.DataFrame:
     mn = x.min(axis=1)
     mx = x.max(axis=1)
-    return x.sub(mn, axis=0).div(mx - mn + 1e-8, axis=0)
+    return x.sub(mn, axis=0).div(mx - mn, axis=0)
 
 
 def cs_divergence(x: pd.DataFrame) -> pd.DataFrame:

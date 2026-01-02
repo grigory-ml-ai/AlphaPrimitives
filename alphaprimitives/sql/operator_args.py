@@ -150,10 +150,10 @@ operator_args_data = [
 
 
 def upload_df():
-    engine = create_engine('postgresql://postgres:postgres@localhost:5432/postgres')
+    engine = create_engine('postgresql://postgres:password@localhost:5432/postgres')
     df_args = pd.DataFrame.from_records(operator_args_data).assign(description="")
     df_operators = pd.read_sql_query(sql='select * from operators', con=engine)[['operator_id', 'operator_name']]
     df = df_operators.merge(df_args, on='operator_name', how='left').drop(columns=['operator_name'])
     df.to_sql(name='operator_args', con=engine, if_exists='append', index=False)
 
-# upload_df()
+upload_df()

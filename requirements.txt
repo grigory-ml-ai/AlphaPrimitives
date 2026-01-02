@@ -19,3 +19,4 @@ greenlet>=3.3.0
 psycopg2>=2.9.11
 packaging>=25.0
 Bottleneck>=1.6.0
+pint

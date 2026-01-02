@@ -512,9 +512,9 @@ operators_data = [
 
 
 def upload_df():
-    engine = create_engine('postgresql://postgres:postgres@localhost:5432/postgres')
+    engine = create_engine('postgresql://postgres:password@localhost:5432/postgres')
     df = pd.DataFrame.from_records(operators_data)
     df.to_sql(con=engine, name='operators', if_exists='append', index=False)
 
 
-# upload_df()
+upload_df()

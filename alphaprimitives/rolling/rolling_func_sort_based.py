@@ -31,7 +31,7 @@ def rolling_quantile(x: pd.DataFrame, w: int) -> pd.DataFrame:
     return x.rolling(w).quantile()
 
 
-def rolling_deviance(x: pd.DataFrame, w: int) -> pd.DataFrame:
+def rolling_range(x: pd.DataFrame, w: int) -> pd.DataFrame:
     rolling_max = bn.move_max(x.values, window=w, min_count=1, axis=0)
     rolling_min = bn.move_min(x.values, window=w, min_count=1, axis=0)
     return pd.DataFrame(rolling_max - rolling_min, index=x.index, columns=x.columns)
