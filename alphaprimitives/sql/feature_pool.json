@@ -1,7 +1,7 @@
 [
-  { "value": "future_open"},
-  { "value": "future_close"},
-  { "value": "future_high"},
-  { "value": "future_low"},
-  { "value": "future_volume"}
+  { "value": "future_open", "dimension": "currency"},
+  { "value": "future_close", "dimension": "currency"},
+  { "value": "future_high", "dimension": "currency"},
+  { "value": "future_low", "dimension":  "currency"},
+  { "value": "future_volume", "dimension": "volume"}
 ]

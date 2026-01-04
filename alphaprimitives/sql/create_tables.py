@@ -55,6 +55,7 @@ class Feature(Base):
     __tablename__ = "feature_pool"
     feature_id = Column(Integer, primary_key=True)
     value = Column(String(255), nullable=False)
+    dimension = Column(String(255), nullable=False)
 
 
 class Window(Base):
