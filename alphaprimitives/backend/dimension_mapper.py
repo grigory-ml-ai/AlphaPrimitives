@@ -106,7 +106,7 @@ class DimensionMapper:
     def rolling_argmax(self, x: PlainQuantity, w: int) -> PlainQuantity:
         return self._ureg.Quantity(1, 'dimensionless')
 
-    def rolling_quantile(self, x: PlainQuantity, w: int) -> PlainQuantity:
+    def rolling_quantile(self, x: PlainQuantity, w: int, percentile: float) -> PlainQuantity:
         return x
 
     def rolling_range(self, x: PlainQuantity, w: int) -> PlainQuantity:

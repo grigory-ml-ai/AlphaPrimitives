@@ -27,8 +27,8 @@ def rolling_argmax(x: pd.DataFrame, w: int) -> pd.DataFrame:
     return pd.DataFrame(out, index=x.index, columns=x.columns)
 
 
-def rolling_quantile(x: pd.DataFrame, w: int) -> pd.DataFrame:
-    return x.rolling(w).quantile()
+def rolling_quantile(x: pd.DataFrame, w: int, percentile: float) -> pd.DataFrame:
+    return x.rolling(w).quantile(percentile)
 
 
 def rolling_range(x: pd.DataFrame, w: int) -> pd.DataFrame:

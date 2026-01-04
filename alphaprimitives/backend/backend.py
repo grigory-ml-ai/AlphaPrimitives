@@ -144,8 +144,8 @@ class PanelBackendPandas:
         return rolling_func_sort_based.rolling_argmax(x, w)
 
     @staticmethod
-    def rolling_quantile(x: pd.DataFrame, w: int) -> pd.DataFrame:
-        return rolling_func_sort_based.rolling_quantile(x, w)
+    def rolling_quantile(x: pd.DataFrame, w: int, percentile: float) -> pd.DataFrame:
+        return rolling_func_sort_based.rolling_quantile(x, w, percentile)
 
     @staticmethod
     def rolling_range(x: pd.DataFrame, w: int) -> pd.DataFrame:

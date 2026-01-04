@@ -1,0 +1,7 @@
+[
+  { "value": "future_open"},
+  { "value": "future_close"},
+  { "value": "future_high"},
+  { "value": "future_low"},
+  { "value": "future_volume"}
+]

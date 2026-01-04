@@ -1,17 +1,13 @@
-import pandas as pd
-from sqlalchemy import create_engine
-
-operators_data = [
-    # --- Math: Arithmetic ---
+[
     {
         "operator_name": "add",
         "version": "0.0.1",
         "arity": 2,
         "category": "arithmetic",
         "description": "Поэлементное сложение двух датафреймов",
-        "commutative": True,
-        "associative": True,
-        "idempotent": False
+        "commutative": true,
+        "associative": true,
+        "idempotent": false
     },
     {
         "operator_name": "sub",
@@ -19,9 +15,9 @@ operators_data = [
         "arity": 2,
         "category": "arithmetic",
         "description": "Поэлементное вычитание двух датафреймов",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "mul",
@@ -29,9 +25,9 @@ operators_data = [
         "arity": 2,
         "category": "arithmetic",
         "description": "Поэлементное умножение двух датафреймов",
-        "commutative": True,
-        "associative": True,
-        "idempotent": False
+        "commutative": true,
+        "associative": true,
+        "idempotent": false
     },
     {
         "operator_name": "div",
@@ -39,21 +35,19 @@ operators_data = [
         "arity": 2,
         "category": "arithmetic",
         "description": "Поэлементное деление двух датафреймов",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
-
-    # --- Math: Nonlinear ---
     {
         "operator_name": "power",
         "version": "0.0.1",
         "arity": 2,
         "category": "nonlinear",
         "description": "Поэлементное возведение в степень (x ^ v)",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "log1p",
@@ -61,9 +55,9 @@ operators_data = [
         "arity": 1,
         "category": "nonlinear",
         "description": "Поэлементный натуральный логарифм от (1 + x)",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "abs",
@@ -71,9 +65,9 @@ operators_data = [
         "arity": 1,
         "category": "nonlinear",
         "description": "Поэлементный модуль (абсолютное значение)",
-        "commutative": False,
-        "associative": False,
-        "idempotent": True
+        "commutative": false,
+        "associative": false,
+        "idempotent": true
     },
     {
         "operator_name": "sigmoid",
@@ -81,9 +75,9 @@ operators_data = [
         "arity": 1,
         "category": "nonlinear",
         "description": "Поэлементная функция активации сигмоида",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "tanh",
@@ -91,9 +85,9 @@ operators_data = [
         "arity": 1,
         "category": "nonlinear",
         "description": "Поэлементный гиперболический тангенс",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "relu",
@@ -101,21 +95,20 @@ operators_data = [
         "arity": 1,
         "category": "nonlinear",
         "description": "Поэлементный ReLU (max(0, x))",
-        "commutative": False,
-        "associative": False,
-        "idempotent": True
+        "commutative": false,
+        "associative": false,
+        "idempotent": true
     },
 
-    # --- Rolling: Moving Averages ---
     {
         "operator_name": "sma",
         "version": "0.0.1",
         "arity": 2,
         "category": "rolling",
         "description": "Простое скользящее среднее (SMA) с окном w",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "ema",
@@ -123,9 +116,9 @@ operators_data = [
         "arity": 2,
         "category": "rolling",
         "description": "Экспоненциальное скользящее среднее (EMA) с коэффициентом затухания alpha",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "rolling_median",
@@ -133,9 +126,9 @@ operators_data = [
         "arity": 2,
         "category": "rolling",
         "description": "Скользящая медиана с окном w",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "savgol_smoothing",
@@ -143,9 +136,9 @@ operators_data = [
         "arity": 3,
         "category": "rolling",
         "description": "Сглаживание фильтром Савицкого-Голея",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "wma",
@@ -153,9 +146,9 @@ operators_data = [
         "arity": 2,
         "category": "rolling",
         "description": "Взвешенное скользящее среднее (WMA) с окном w",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "hull_moving_average",
@@ -163,21 +156,19 @@ operators_data = [
         "arity": 2,
         "category": "rolling",
         "description": "Скользящее среднее Хала (HMA) с окном w",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
-
-    # --- Rolling: Stats ---
     {
         "operator_name": "rolling_var",
         "version": "0.0.1",
         "arity": 2,
         "category": "rolling",
         "description": "Скользящая дисперсия с окном w",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "rolling_std",
@@ -185,9 +176,9 @@ operators_data = [
         "arity": 2,
         "category": "rolling",
         "description": "Скользящее стандартное отклонение с окном w",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "rolling_skew",
@@ -195,9 +186,9 @@ operators_data = [
         "arity": 2,
         "category": "rolling",
         "description": "Скользящая асимметрия с окном w",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "rolling_kurt",
@@ -205,31 +196,30 @@ operators_data = [
         "arity": 2,
         "category": "rolling",
         "description": "Скользящий эксцесс с окном w",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
 
-    # --- Rolling: Other ---
     {
         "operator_name": "rolling_corr",
         "version": "0.0.1",
         "arity": 3,
         "category": "rolling",
         "description": "Скользящая корреляция между двумя датафреймами с окном w",
-        "commutative": True,
-        "associative": False,
-        "idempotent": False
+        "commutative": true,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "rolling_cov",
         "version": "0.0.1",
-        "arity": 2,
+        "arity": 3,
         "category": "rolling",
         "description": "Скользящая ковариация (или дисперсия для одного входа) с окном w",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "rolling_sum",
@@ -237,9 +227,9 @@ operators_data = [
         "arity": 2,
         "category": "rolling",
         "description": "Скользящая сумма с окном w",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "rolling_prod",
@@ -247,9 +237,9 @@ operators_data = [
         "arity": 2,
         "category": "rolling",
         "description": "Скользящее произведение с окном w",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "rolling_quadratic_variation",
@@ -257,21 +247,19 @@ operators_data = [
         "arity": 2,
         "category": "rolling",
         "description": "Скользящая квадратичная вариация с окном w",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
-
-    # --- Rolling: Sort Based ---
     {
         "operator_name": "rolling_max",
         "version": "0.0.1",
         "arity": 2,
         "category": "rolling",
         "description": "Скользящий максимум с окном w",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "rolling_min",
@@ -279,9 +267,9 @@ operators_data = [
         "arity": 2,
         "category": "rolling",
         "description": "Скользящий минимум с окном w",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "rolling_rank",
@@ -289,9 +277,9 @@ operators_data = [
         "arity": 2,
         "category": "rolling",
         "description": "Скользящий ранг с окном w",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "rolling_argmin",
@@ -299,9 +287,9 @@ operators_data = [
         "arity": 2,
         "category": "rolling",
         "description": "Индекс скользящего минимума с окном w",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "rolling_argmax",
@@ -309,41 +297,40 @@ operators_data = [
         "arity": 2,
         "category": "rolling",
         "description": "Индекс скользящего максимума с окном w",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "rolling_quantile",
         "version": "0.0.1",
-        "arity": 2,
+        "arity": 3,
         "category": "rolling",
         "description": "Скользящий квантиль с окном w",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
-        "operator_name": "rolling_deviance",
+        "operator_name": "rolling_range",
         "version": "0.0.1",
         "arity": 2,
         "category": "rolling",
         "description": "Скользящее отклонение (размах) с окном w",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
 
-    # --- Time Series ---
     {
         "operator_name": "diff",
         "version": "0.0.1",
         "arity": 2,
         "category": "timeseries",
         "description": "Дискретная разность элемента и элемента с лагом d",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "delay",
@@ -351,20 +338,19 @@ operators_data = [
         "arity": 2,
         "category": "timeseries",
         "description": "Дискретная задержка",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
-    # --- Logical ---
     {
         "operator_name": "greater_than",
         "version": "0.0.1",
         "arity": 2,
         "category": "logical",
         "description": "Поэлементное сравнение 'больше'",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "greater_equal",
@@ -372,9 +358,9 @@ operators_data = [
         "arity": 2,
         "category": "logical",
         "description": "Поэлементное сравнение 'больше или равно'",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "lower_than",
@@ -382,9 +368,9 @@ operators_data = [
         "arity": 2,
         "category": "logical",
         "description": "Поэлементное сравнение 'меньше'",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "lower_equal",
@@ -392,9 +378,9 @@ operators_data = [
         "arity": 2,
         "category": "logical",
         "description": "Поэлементное сравнение 'меньше или равно'",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "equal",
@@ -402,9 +388,9 @@ operators_data = [
         "arity": 2,
         "category": "logical",
         "description": "Поэлементное сравнение на равенство",
-        "commutative": True,
-        "associative": False,
-        "idempotent": False
+        "commutative": true,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "not_equal",
@@ -412,21 +398,19 @@ operators_data = [
         "arity": 2,
         "category": "logical",
         "description": "Поэлементное сравнение на неравенство",
-        "commutative": True,
-        "associative": False,
-        "idempotent": False
+        "commutative": true,
+        "associative": false,
+        "idempotent": false
     },
-
-    # --- Cross Sectional ---
     {
         "operator_name": "demean_cross_sectional",
         "version": "0.0.1",
         "arity": 1,
         "category": "cross_sectional",
         "description": "Вычитание кросс-секционного среднего из элементов",
-        "commutative": False,
-        "associative": False,
-        "idempotent": True
+        "commutative": false,
+        "associative": false,
+        "idempotent": true
     },
     {
         "operator_name": "cs_mean",
@@ -434,9 +418,9 @@ operators_data = [
         "arity": 1,
         "category": "cross_sectional",
         "description": "Кросс-секционное среднее, распространенное (broadcasted) на форму данных",
-        "commutative": False,
-        "associative": False,
-        "idempotent": True
+        "commutative": false,
+        "associative": false,
+        "idempotent": true
     },
     {
         "operator_name": "cs_rank",
@@ -444,9 +428,9 @@ operators_data = [
         "arity": 1,
         "category": "cross_sectional",
         "description": "Кросс-секционный ранг",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "cs_percentile",
@@ -454,9 +438,9 @@ operators_data = [
         "arity": 1,
         "category": "cross_sectional",
         "description": "Кросс-секционный процентильный ранг",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "cs_zscore",
@@ -464,9 +448,9 @@ operators_data = [
         "arity": 1,
         "category": "cross_sectional",
         "description": "Кросс-секционная нормализация Z-score",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "cs_range_normalize",
@@ -474,9 +458,9 @@ operators_data = [
         "arity": 1,
         "category": "cross_sectional",
         "description": "Кросс-секционная Min-Max нормализация",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "cs_divergence",
@@ -484,9 +468,9 @@ operators_data = [
         "arity": 1,
         "category": "cross_sectional",
         "description": "Квадрат отклонения от кросс-секционного среднего",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "cs_winsorize",
@@ -494,9 +478,9 @@ operators_data = [
         "arity": 2,
         "category": "cross_sectional",
         "description": "Винзоризация данных на основе кросс-секционного квантиля",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     },
     {
         "operator_name": "cs_resid",
@@ -504,17 +488,8 @@ operators_data = [
         "arity": 2,
         "category": "cross_sectional",
         "description": "Остатки кросс-секционной регрессии x на y",
-        "commutative": False,
-        "associative": False,
-        "idempotent": False
+        "commutative": false,
+        "associative": false,
+        "idempotent": false
     }
 ]
-
-
-def upload_df():
-    engine = create_engine('postgresql://postgres:password@localhost:5432/postgres')
-    df = pd.DataFrame.from_records(operators_data)
-    df.to_sql(con=engine, name='operators', if_exists='append', index=False)
-
-
-# upload_df()
