@@ -1,173 +1,216 @@
 from __future__ import annotations
 
+from sympy.core.expr import Expr
 import inspect
-
-from pint import UnitRegistry
-from pint.facets.plain import PlainQuantity
-
+from sympy import S
 
 class DimensionMapper:
-    def __init__(self, ureg: UnitRegistry):
-        self._ureg = ureg
-
     # --- Math: Arithmetic ---
-    def add(self, x: PlainQuantity, y: PlainQuantity) -> PlainQuantity:
+    @staticmethod
+    def add(x: Expr, y: Expr) -> Expr:
         return x
 
-    def sub(self, x: PlainQuantity, y: PlainQuantity) -> PlainQuantity:
+    @staticmethod
+    def sub(x: Expr, y: Expr) -> Expr:
         return x
 
-    def mul(self, x: PlainQuantity, y: PlainQuantity) -> PlainQuantity:
+    @staticmethod
+    def mul(x: Expr, y: Expr) -> Expr:
         return x * y
 
-    def div(self, x: PlainQuantity, y: PlainQuantity) -> PlainQuantity:
+    @staticmethod
+    def div(x: Expr, y: Expr) -> Expr:
         return x / y
 
     # --- Math: Nonlinear ---
-    def power(self, x: PlainQuantity, v: float) -> PlainQuantity:
+    @staticmethod
+    def power(x: Expr, v: float) -> Expr:
         return x ** v
 
-    def log1p(self, x: PlainQuantity) -> PlainQuantity:
-        return self._ureg.Quantity(1, 'dimensionless')
+    @staticmethod
+    def log1p(x: Expr) -> Expr:
+        return S.one
 
-    def abs(self, x: PlainQuantity) -> PlainQuantity:
+    @staticmethod
+    def abs(x: Expr) -> Expr:
         return x
 
-    def sigmoid(self, x: PlainQuantity) -> PlainQuantity:
-        return self._ureg.Quantity(1, 'dimensionless')
+    @staticmethod
+    def sigmoid(x: Expr) -> Expr:
+        return S.one
 
-    def tanh(self, x: PlainQuantity) -> PlainQuantity:
-        return self._ureg.Quantity(1, 'dimensionless')
+    @staticmethod
+    def tanh(x: Expr) -> Expr:
+        return S.one
 
-    def relu(self, x: PlainQuantity) -> PlainQuantity:
-        return self._ureg.Quantity(1, 'dimensionless')
+    @staticmethod
+    def relu(x: Expr) -> Expr:
+        return S.one
 
     # --- Rolling: Moving Averages ---
-    def sma(self, x: PlainQuantity, w: int) -> PlainQuantity:
+    @staticmethod
+    def sma(x: Expr, w: int) -> Expr:
         return x
 
-    def ema(self, x: PlainQuantity, alpha: float) -> PlainQuantity:
+    @staticmethod
+    def ema(x: Expr, alpha: float) -> Expr:
         return x
 
-    def rolling_median(self, x: PlainQuantity, w: int) -> PlainQuantity:
+    @staticmethod
+    def rolling_median(x: Expr, w: int) -> Expr:
         return x
 
-    def savgol_smoothing(self, x: PlainQuantity, w: int = 3, polyorder: int = 3) -> PlainQuantity:
+    @staticmethod
+    def savgol_smoothing(x: Expr, w: int = 3, polyorder: int = 3) -> Expr:
         return x
 
-    def wma(self, x: PlainQuantity, w: int) -> PlainQuantity:
+    @staticmethod
+    def wma(x: Expr, w: int) -> Expr:
         return x
 
-    def hull_moving_average(self, x: PlainQuantity, w: int) -> PlainQuantity:
+    @staticmethod
+    def hull_moving_average(x: Expr, w: int) -> Expr:
         return x
 
     # --- Rolling: Stats ---
-    def rolling_var(self, x: PlainQuantity, w: int) -> PlainQuantity:
+    @staticmethod
+    def rolling_var(x: Expr, w: int) -> Expr:
         return x ** 2
 
-    def rolling_std(self, x: PlainQuantity, w: int) -> PlainQuantity:
+    @staticmethod
+    def rolling_std(x: Expr, w: int) -> Expr:
         return x
 
-    def rolling_skew(self, x: PlainQuantity, w: int) -> PlainQuantity:
+    @staticmethod
+    def rolling_skew(x: Expr, w: int) -> Expr:
         return x
 
-    def rolling_kurt(self, x: PlainQuantity, w: int) -> PlainQuantity:
+    @staticmethod
+    def rolling_kurt(x: Expr, w: int) -> Expr:
         return x
 
     # --- Rolling: Other ---
-    def rolling_corr(self, x: PlainQuantity, y: PlainQuantity, w: int) -> PlainQuantity:
+    @staticmethod
+    def rolling_corr(x: Expr, y: Expr, w: int) -> Expr:
         return x
 
-    def rolling_cov(self, x: PlainQuantity, y: PlainQuantity, w: int) -> PlainQuantity:
+    @staticmethod
+    def rolling_cov(x: Expr, y: Expr, w: int) -> Expr:
         return x * y
 
-    def rolling_sum(self, x: PlainQuantity, w: int) -> PlainQuantity:
+    @staticmethod
+    def rolling_sum(x: Expr, w: int) -> Expr:
         return x
 
-    def rolling_prod(self, x: PlainQuantity, w: int) -> PlainQuantity:
+    @staticmethod
+    def rolling_prod(x: Expr, w: int) -> Expr:
         return x ** w
 
-    def rolling_quadratic_variation(self, x: PlainQuantity, w: int) -> PlainQuantity:
+    @staticmethod
+    def rolling_quadratic_variation(x: Expr, w: int) -> Expr:
         return x ** 2
 
     # --- Rolling: Sort Based ---
-    def rolling_max(self, x: PlainQuantity, w: int) -> PlainQuantity:
+    @staticmethod
+    def rolling_max(x: Expr, w: int) -> Expr:
         return x
 
-    def rolling_min(self, x: PlainQuantity, w: int) -> PlainQuantity:
+    @staticmethod
+    def rolling_min(x: Expr, w: int) -> Expr:
         return x
 
-    def rolling_rank(self, x: PlainQuantity, w: int) -> PlainQuantity:
-        return self._ureg.Quantity(1, 'dimensionless')
+    @staticmethod
+    def rolling_rank(x: Expr, w: int) -> Expr:
+        return S.one
 
-    def rolling_argmin(self, x: PlainQuantity, w: int) -> PlainQuantity:
-        return self._ureg.Quantity(1, 'dimensionless')
+    @staticmethod
+    def rolling_argmin(x: Expr, w: int) -> Expr:
+        return S.one
 
-    def rolling_argmax(self, x: PlainQuantity, w: int) -> PlainQuantity:
-        return self._ureg.Quantity(1, 'dimensionless')
+    @staticmethod
+    def rolling_argmax(x: Expr, w: int) -> Expr:
+        return S.one
 
-    def rolling_quantile(self, x: PlainQuantity, w: int, percentile: float) -> PlainQuantity:
+    @staticmethod
+    def rolling_quantile(x: Expr, w: int, percentile: float) -> Expr:
         return x
 
-    def rolling_range(self, x: PlainQuantity, w: int) -> PlainQuantity:
+    @staticmethod
+    def rolling_range(x: Expr, w: int) -> Expr:
         return x
 
-    def diff(self, x: PlainQuantity, d: int) -> PlainQuantity:
+    @staticmethod
+    def diff(x: Expr, d: int) -> Expr:
         return x
 
-    def delay(self, x: PlainQuantity, d: int) -> PlainQuantity:
+    @staticmethod
+    def delay(x: Expr, d: int) -> Expr:
         return x
 
-    def greater_than(self, x: PlainQuantity, y: PlainQuantity) -> PlainQuantity:
-        return self._ureg.Quantity(1, 'dimensionless')
+    @staticmethod
+    def greater_than(x: Expr, y: Expr) -> Expr:
+        return S.one
 
-    def greater_equal(self, x: PlainQuantity, y: PlainQuantity) -> PlainQuantity:
-        return self._ureg.Quantity(1, 'dimensionless')
+    @staticmethod
+    def greater_equal(x: Expr, y: Expr) -> Expr:
+        return S.one
 
-    def lower_than(self, x: PlainQuantity, y: PlainQuantity) -> PlainQuantity:
-        return self._ureg.Quantity(1, 'dimensionless')
+    @staticmethod
+    def lower_than(x: Expr, y: Expr) -> Expr:
+        return S.one
 
-    def lower_equal(self, x: PlainQuantity, y: PlainQuantity) -> PlainQuantity:
-        return self._ureg.Quantity(1, 'dimensionless')
+    @staticmethod
+    def lower_equal(x: Expr, y: Expr) -> Expr:
+        return S.one
 
-    def equal(self, x: PlainQuantity, y: PlainQuantity) -> PlainQuantity:
-        return self._ureg.Quantity(1, 'dimensionless')
+    @staticmethod
+    def equal(x: Expr, y: Expr) -> Expr:
+        return S.one
 
-    def not_equal(self, x: PlainQuantity, y: PlainQuantity) -> PlainQuantity:
-        return self._ureg.Quantity(1, 'dimensionless')
+    @staticmethod
+    def not_equal(x: Expr, y: Expr) -> Expr:
+        return S.one
 
-    def demean_cross_sectional(self, x: PlainQuantity) -> PlainQuantity:
+    @staticmethod
+    def demean_cross_sectional(x: Expr) -> Expr:
         return x
 
-    def cs_mean(self, x: PlainQuantity) -> PlainQuantity:
+    @staticmethod
+    def cs_mean(x: Expr) -> Expr:
         return x
 
-    def cs_rank(self, x: PlainQuantity) -> PlainQuantity:
-        return self._ureg.Quantity(1, 'dimensionless')
+    @staticmethod
+    def cs_rank(x: Expr) -> Expr:
+        return S.one
 
-    def cs_percentile(self, x: PlainQuantity) -> PlainQuantity:
-        return self._ureg.Quantity(1, 'dimensionless')
+    @staticmethod
+    def cs_percentile(x: Expr) -> Expr:
+        return S.one
 
-    def cs_zscore(self, x: PlainQuantity) -> PlainQuantity:
+    @staticmethod
+    def cs_zscore(x: Expr) -> Expr:
         return x
 
-    def cs_range_normalize(self, x: PlainQuantity) -> PlainQuantity:
-        return self._ureg.Quantity(1, 'dimensionless')
+    @staticmethod
+    def cs_range_normalize(x: Expr) -> Expr:
+        return S.one
 
-    def cs_divergence(self, x: PlainQuantity) -> PlainQuantity:
+    @staticmethod
+    def cs_divergence(x: Expr) -> Expr:
         return x ** 2
 
-    def cs_winsorize(self, x: PlainQuantity, percentile: float = 0.01) -> PlainQuantity:
+    @staticmethod
+    def cs_winsorize(x: Expr, percentile: float = 0.01) -> Expr:
         return x
 
-    def cs_resid(self, x: PlainQuantity, y: PlainQuantity) -> PlainQuantity:
+    @staticmethod
+    def cs_resid(x: Expr, y: Expr) -> Expr:
         return x
 
 
-def apply_dimension_map_from_string(function_name: str, args: dict, ureg: UnitRegistry) -> PlainQuantity:
-    dimension_mapper = DimensionMapper(ureg)
+def apply_dimension_map_from_string(function_name: str, args: dict) -> Expr:
     function = list(filter(
         lambda x: x[0] == function_name,
-        inspect.getmembers(dimension_mapper))
+        inspect.getmembers(DimensionMapper))
     )[0][1]
     return function(**args)

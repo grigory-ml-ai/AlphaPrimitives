@@ -1,141 +1,141 @@
 [
 
-    {"operator_name": "add", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "add", "arg_name": "y", "position": 2, "pool_type": "value"},
+    {"operator_name": "add", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "add", "arg_name": "y", "position": 2, "kind": "value"},
 
-    {"operator_name": "sub", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "sub", "arg_name": "y", "position": 2, "pool_type": "value"},
+    {"operator_name": "sub", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "sub", "arg_name": "y", "position": 2, "kind": "value"},
 
-    {"operator_name": "mul", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "mul", "arg_name": "y", "position": 2, "pool_type": "value"},
+    {"operator_name": "mul", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "mul", "arg_name": "y", "position": 2, "kind": "value"},
 
-    {"operator_name": "div", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "div", "arg_name": "y", "position": 2, "pool_type": "value"},
+    {"operator_name": "div", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "div", "arg_name": "y", "position": 2, "kind": "value"},
 
-    {"operator_name": "power", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "power", "arg_name": "v", "position": 2, "pool_type": "scalar"},
+    {"operator_name": "power", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "power", "arg_name": "v", "position": 2, "kind": "scalar", "min_value": "-inf", "max_value": "inf"},
 
-    {"operator_name": "log1p", "arg_name": "x", "position": 1, "pool_type": "value"},
+    {"operator_name": "log1p", "arg_name": "x", "position": 1, "kind": "value"},
 
-    {"operator_name": "abs", "arg_name": "x", "position": 1, "pool_type": "value"},
+    {"operator_name": "abs", "arg_name": "x", "position": 1, "kind": "value"},
 
-    {"operator_name": "sigmoid", "arg_name": "x", "position": 1, "pool_type": "value"},
+    {"operator_name": "sigmoid", "arg_name": "x", "position": 1, "kind": "value"},
 
-    {"operator_name": "tanh", "arg_name": "x", "position": 1, "pool_type": "value"},
+    {"operator_name": "tanh", "arg_name": "x", "position": 1, "kind": "value"},
 
-    {"operator_name": "relu", "arg_name": "x", "position": 1, "pool_type": "value"},
+    {"operator_name": "relu", "arg_name": "x", "position": 1, "kind": "value"},
 
-    {"operator_name": "sma", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "sma", "arg_name": "w", "position": 2, "pool_type": "window", "min_value": 2},
+    {"operator_name": "sma", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "sma", "arg_name": "w", "position": 2, "kind": "window", "min_value": 2, "max_value": "inf"},
 
-    {"operator_name": "ema", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "ema", "arg_name": "alpha", "position": 2, "pool_type": "scalar", "min_value": 0.0001, "max_value": 0.9999},
+    {"operator_name": "ema", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "ema", "arg_name": "alpha", "position": 2, "kind": "", "min_value": 0.0001, "max_value": 0.9999},
 
-    {"operator_name": "rolling_median", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "rolling_median", "arg_name": "w", "position": 2, "pool_type": "window", "min_value": 2},
+    {"operator_name": "rolling_median", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "rolling_median", "arg_name": "w", "position": 2, "kind": "window", "min_value": 2, "max_value": "inf"},
 
-    {"operator_name": "savgol_smoothing", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "savgol_smoothing", "arg_name": "w", "position": 2, "pool_type": "window", "min_value": 3},
-    {"operator_name": "savgol_smoothing", "arg_name": "polyorder", "position": 3, "pool_type": "scalar", "min_value": 1},
+    {"operator_name": "savgol_smoothing", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "savgol_smoothing", "arg_name": "w", "position": 2, "kind": "window", "min_value": 3, "max_value": "inf"},
+    {"operator_name": "savgol_smoothing", "arg_name": "polyorder", "position": 3, "kind": "", "min_value": 1, "max_value": "inf"},
 
-    {"operator_name": "wma", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "wma", "arg_name": "w", "position": 2, "pool_type": "window", "min_value": 2},
+    {"operator_name": "wma", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "wma", "arg_name": "w", "position": 2, "kind": "window", "min_value": 2, "max_value": "inf"},
 
-    {"operator_name": "hull_moving_average", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "hull_moving_average", "arg_name": "w", "position": 2, "pool_type": "window", "min_value": 5},
+    {"operator_name": "hull_moving_average", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "hull_moving_average", "arg_name": "w", "position": 2, "kind": "window", "min_value": 5, "max_value": "inf"},
 
-    {"operator_name": "rolling_var", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "rolling_var", "arg_name": "w", "position": 2, "pool_type": "window", "min_value": 2},
+    {"operator_name": "rolling_var", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "rolling_var", "arg_name": "w", "position": 2, "kind": "window", "min_value": 2, "max_value": "inf"},
 
-    {"operator_name": "rolling_std", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "rolling_std", "arg_name": "w", "position": 2, "pool_type": "window", "min_value": 2},
+    {"operator_name": "rolling_std", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "rolling_std", "arg_name": "w", "position": 2, "kind": "window", "min_value": 2, "max_value": "inf"},
 
-    {"operator_name": "rolling_skew", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "rolling_skew", "arg_name": "w", "position": 2, "pool_type": "window", "min_value": 3},
+    {"operator_name": "rolling_skew", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "rolling_skew", "arg_name": "w", "position": 2, "kind": "window", "min_value": 3, "max_value": "inf"},
 
-    {"operator_name": "rolling_kurt", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "rolling_kurt", "arg_name": "w", "position": 2, "pool_type": "window", "min_value": 4},
+    {"operator_name": "rolling_kurt", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "rolling_kurt", "arg_name": "w", "position": 2, "kind": "window", "min_value": 4, "max_value": "inf"},
 
-    {"operator_name": "rolling_corr", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "rolling_corr", "arg_name": "y", "position": 2, "pool_type": "value"},
-    {"operator_name": "rolling_corr", "arg_name": "w", "position": 3, "pool_type": "window", "min_value": 2},
+    {"operator_name": "rolling_corr", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "rolling_corr", "arg_name": "y", "position": 2, "kind": "value"},
+    {"operator_name": "rolling_corr", "arg_name": "w", "position": 3, "kind": "window", "min_value": 2, "max_value": "inf"},
 
-    {"operator_name": "rolling_cov", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "rolling_cov", "arg_name": "y", "position": 2, "pool_type": "value"},
-    {"operator_name": "rolling_cov", "arg_name": "w", "position": 3, "pool_type": "window", "min_value": 2},
+    {"operator_name": "rolling_cov", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "rolling_cov", "arg_name": "y", "position": 2, "kind": "value"},
+    {"operator_name": "rolling_cov", "arg_name": "w", "position": 3, "kind": "window", "min_value": 2, "max_value": "inf"},
 
-    {"operator_name": "rolling_sum", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "rolling_sum", "arg_name": "w", "position": 2, "pool_type": "window", "min_value": 2},
+    {"operator_name": "rolling_sum", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "rolling_sum", "arg_name": "w", "position": 2, "kind": "window", "min_value": 2, "max_value": "inf"},
 
-    {"operator_name": "rolling_prod", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "rolling_prod", "arg_name": "w", "position": 2, "pool_type": "window", "min_value": 2},
+    {"operator_name": "rolling_prod", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "rolling_prod", "arg_name": "w", "position": 2, "kind": "window", "min_value": 2, "max_value": "inf"},
 
-    {"operator_name": "rolling_quadratic_variation", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "rolling_quadratic_variation", "arg_name": "w", "position": 2, "pool_type": "window", "min_value": 2},
+    {"operator_name": "rolling_quadratic_variation", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "rolling_quadratic_variation", "arg_name": "w", "position": 2, "kind": "window", "min_value": 2, "max_value": "inf"},
 
-    {"operator_name": "rolling_max", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "rolling_max", "arg_name": "w", "position": 2, "pool_type": "window", "min_value": 2},
+    {"operator_name": "rolling_max", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "rolling_max", "arg_name": "w", "position": 2, "kind": "window", "min_value": 2, "max_value": "inf"},
 
-    {"operator_name": "rolling_min", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "rolling_min", "arg_name": "w", "position": 2, "pool_type": "window", "min_value": 2},
+    {"operator_name": "rolling_min", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "rolling_min", "arg_name": "w", "position": 2, "kind": "window", "min_value": 2, "max_value": "inf"},
 
-    {"operator_name": "rolling_rank", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "rolling_rank", "arg_name": "w", "position": 2, "pool_type": "window", "min_value": 2},
+    {"operator_name": "rolling_rank", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "rolling_rank", "arg_name": "w", "position": 2, "kind": "window", "min_value": 2, "max_value": "inf"},
 
-    {"operator_name": "rolling_argmin", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "rolling_argmin", "arg_name": "w", "position": 2, "pool_type": "window", "min_value": 2},
+    {"operator_name": "rolling_argmin", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "rolling_argmin", "arg_name": "w", "position": 2, "kind": "window", "min_value": 2, "max_value": "inf"},
 
-    {"operator_name": "rolling_argmax", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "rolling_argmax", "arg_name": "w", "position": 2, "pool_type": "window", "min_value": 2},
+    {"operator_name": "rolling_argmax", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "rolling_argmax", "arg_name": "w", "position": 2, "kind": "window", "min_value": 2, "max_value": "inf"},
 
-    {"operator_name": "rolling_quantile", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "rolling_quantile", "arg_name": "w", "position": 2, "pool_type": "window", "min_value": 2},
-    {"operator_name": "rolling_quantile", "arg_name": "percentile", "position": 3, "pool_type": "scalar", "min_value": 0.0, "max_value": 1.0},
+    {"operator_name": "rolling_quantile", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "rolling_quantile", "arg_name": "w", "position": 2, "kind": "window", "min_value": 2, "max_value": "inf"},
+    {"operator_name": "rolling_quantile", "arg_name": "percentile", "position": 3, "kind": "", "min_value": 0.0, "max_value": 1.0},
 
-    {"operator_name": "rolling_range", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "rolling_range", "arg_name": "w", "position": 2, "pool_type": "window", "min_value": 2},
+    {"operator_name": "rolling_range", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "rolling_range", "arg_name": "w", "position": 2, "kind": "window", "min_value": 2, "max_value": "inf"},
 
-    {"operator_name": "diff", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "diff", "arg_name": "d", "position": 2, "pool_type": "window", "min_value": 1},
+    {"operator_name": "diff", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "diff", "arg_name": "d", "position": 2, "kind": "window", "min_value": 1, "max_value": "inf"},
 
-    {"operator_name": "delay", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "delay", "arg_name": "d", "position": 2, "pool_type": "window", "min_value": 1},
+    {"operator_name": "delay", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "delay", "arg_name": "d", "position": 2, "kind": "window", "min_value": 1, "max_value": "inf"},
 
-    {"operator_name": "greater_than", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "greater_than", "arg_name": "y", "position": 2, "pool_type": "value"},
+    {"operator_name": "greater_than", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "greater_than", "arg_name": "y", "position": 2, "kind": "value"},
 
-    {"operator_name": "greater_equal", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "greater_equal", "arg_name": "y", "position": 2, "pool_type": "value"},
+    {"operator_name": "greater_equal", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "greater_equal", "arg_name": "y", "position": 2, "kind": "value"},
 
-    {"operator_name": "lower_than", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "lower_than", "arg_name": "y", "position": 2, "pool_type": "value"},
+    {"operator_name": "lower_than", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "lower_than", "arg_name": "y", "position": 2, "kind": "value"},
 
-    {"operator_name": "lower_equal", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "lower_equal", "arg_name": "y", "position": 2, "pool_type": "value"},
+    {"operator_name": "lower_equal", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "lower_equal", "arg_name": "y", "position": 2, "kind": "value"},
 
-    {"operator_name": "equal", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "equal", "arg_name": "y", "position": 2, "pool_type": "value"},
+    {"operator_name": "equal", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "equal", "arg_name": "y", "position": 2, "kind": "value"},
 
-    {"operator_name": "not_equal", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "not_equal", "arg_name": "y", "position": 2, "pool_type": "value"},
+    {"operator_name": "not_equal", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "not_equal", "arg_name": "y", "position": 2, "kind": "value"},
 
-    {"operator_name": "demean_cross_sectional", "arg_name": "x", "position": 1, "pool_type": "value"},
+    {"operator_name": "demean_cross_sectional", "arg_name": "x", "position": 1, "kind": "value"},
 
-    {"operator_name": "cs_mean", "arg_name": "x", "position": 1, "pool_type": "value"},
+    {"operator_name": "cs_mean", "arg_name": "x", "position": 1, "kind": "value"},
 
-    {"operator_name": "cs_rank", "arg_name": "x", "position": 1, "pool_type": "value"},
+    {"operator_name": "cs_rank", "arg_name": "x", "position": 1, "kind": "value"},
 
-    {"operator_name": "cs_percentile", "arg_name": "x", "position": 1, "pool_type": "value"},
+    {"operator_name": "cs_percentile", "arg_name": "x", "position": 1, "kind": "value"},
 
-    {"operator_name": "cs_zscore", "arg_name": "x", "position": 1, "pool_type": "value"},
+    {"operator_name": "cs_zscore", "arg_name": "x", "position": 1, "kind": "value"},
 
-    {"operator_name": "cs_range_normalize", "arg_name": "x", "position": 1, "pool_type": "value"},
+    {"operator_name": "cs_range_normalize", "arg_name": "x", "position": 1, "kind": "value"},
 
-    {"operator_name": "cs_divergence", "arg_name": "x", "position": 1, "pool_type": "value"},
+    {"operator_name": "cs_divergence", "arg_name": "x", "position": 1, "kind": "value"},
 
-    {"operator_name": "cs_winsorize", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "cs_winsorize", "arg_name": "percentile", "position": 2, "pool_type": "scalar", "min_value": 0.0, "max_value": 1.0},
+    {"operator_name": "cs_winsorize", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "cs_winsorize", "arg_name": "percentile", "position": 2, "kind": "scalar", "min_value": 0.0, "max_value": 1.0},
 
-    {"operator_name": "cs_resid", "arg_name": "x", "position": 1, "pool_type": "value"},
-    {"operator_name": "cs_resid", "arg_name": "y", "position": 2, "pool_type": "value"}
+    {"operator_name": "cs_resid", "arg_name": "x", "position": 1, "kind": "value"},
+    {"operator_name": "cs_resid", "arg_name": "y", "position": 2, "kind": "value"}
 ]

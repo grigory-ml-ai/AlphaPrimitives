@@ -46,7 +46,7 @@ class OperatorArg(Base):
     )
     position = Column(Integer, nullable=False)
     arg_name = Column(String(64), nullable=False)
-    pool_type = Column(String(64), nullable=False)
+    kind = Column(String(64), nullable=False)
     min_value = Column(Numeric)
     max_value = Column(Numeric)
 
@@ -82,12 +82,10 @@ def upload_operators(connection: ConnectionPostgres) -> None:
 
 
 def upload_operator_args(connection: ConnectionPostgres) -> None:
-    df_operator_args = (
+    df_operators = connection.load_table('operators', columns=['operator_id', 'operator_name'])
+    df_operator_args: pd.DataFrame = (
         pd.read_json('operator_args.json')
-        .merge(
-            connection.load_table('operators', columns=['operator_id', 'operator_name']),
-            on='operator_name', how='left'
-        )
+        .merge(df_operators, on='operator_name', how='left')
         .drop(columns=['operator_name'])
     )
     connection.upload_df_to_db(df_operator_args, table_name='operator_args')
@@ -113,9 +111,15 @@ def upload_window_pool(connection: ConnectionPostgres) -> None:
 
 def upload_scalar_pool(connection: ConnectionPostgres) -> None:
     SCALAR_POOL = [
-        -0.05, -0.1, -0.2, -0.25, -0.3333, -0.5, -0.6, -0.7, -0.75, -1.0, -1.25, -1.5, -2.0, -2.5, -3.0, -4.0,
-        0.0, 0.05, 0.1, 0.2, 0.25, 0.3333, 0.5, 0.6, 0.7, 0.75, 1.0, 1.25, 1.5, 2.0, 2.5, 3.0, 4.0
+        -0.75, -0.5, -0.25, 0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.25,
+        3.5, 3.75, -0.667, -1.833, -3.833, -3.583, -3.333, -3.083, 0.417, 0.667, 0.917, 1.167, -2.833,
+        -2.583, -2.333, -2.083, -1.583, -0.583, -0.333, -0.083, 1.417, 1.667, 1.917, 2.167, 2.417, 2.667,
+        2.917, 3.167, 3.417, 3.667, 3.917, -2.417, -1.917, -1.667, -1.417, -3.917, -3.667, -3.417, -0.417,
+        0.083, 0.333, 0.583, 1.583, -3.167, -2.917, -2.667, -2.167, -1.167, -0.167, 0.833, 1.083, 1.333,
+        1.833, 2.083, 2.333, 2.583, 2.833, 3.083, 3.333, 3.583, 3.833, -3.5, -1.75, -3.0, -3.75, -1.333,
+        -1.083, -0.833, 0.167, -2.25, -2.0, -1.0, -0.917, -1.5, -2.5, -3.25, -2.75, -1.25
     ]
+
     df_scalar_pool = pd.Series(
         data=SCALAR_POOL,
         name='value'
