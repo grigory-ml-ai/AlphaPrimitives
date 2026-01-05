@@ -6,6 +6,7 @@ from sqlalchemy import (
 from sqlalchemy.orm import declarative_base
 
 from alphaprimitives.sql.connection import ConnectionPostgres
+from fractions import Fraction
 
 Base = declarative_base()
 
@@ -111,14 +112,33 @@ def upload_window_pool(connection: ConnectionPostgres) -> None:
 
 def upload_scalar_pool(connection: ConnectionPostgres) -> None:
     SCALAR_POOL = [
-        -0.75, -0.5, -0.25, 0.0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.25,
-        3.5, 3.75, -0.667, -1.833, -3.833, -3.583, -3.333, -3.083, 0.417, 0.667, 0.917, 1.167, -2.833,
-        -2.583, -2.333, -2.083, -1.583, -0.583, -0.333, -0.083, 1.417, 1.667, 1.917, 2.167, 2.417, 2.667,
-        2.917, 3.167, 3.417, 3.667, 3.917, -2.417, -1.917, -1.667, -1.417, -3.917, -3.667, -3.417, -0.417,
-        0.083, 0.333, 0.583, 1.583, -3.167, -2.917, -2.667, -2.167, -1.167, -0.167, 0.833, 1.083, 1.333,
-        1.833, 2.083, 2.333, 2.583, 2.833, 3.083, 3.333, 3.583, 3.833, -3.5, -1.75, -3.0, -3.75, -1.333,
-        -1.083, -0.833, 0.167, -2.25, -2.0, -1.0, -0.917, -1.5, -2.5, -3.25, -2.75, -1.25
+        Fraction(-4, 1), Fraction(-47, 12), Fraction(-23, 6), Fraction(-15, 4),
+        Fraction(-11, 3), Fraction(-43, 12), Fraction(-7, 2), Fraction(-41, 12),
+        Fraction(-10, 3), Fraction(-13, 4), Fraction(-19, 6), Fraction(-37, 12),
+        Fraction(-3, 1), Fraction(-35, 12), Fraction(-17, 6), Fraction(-11, 4),
+        Fraction(-8, 3), Fraction(-31, 12), Fraction(-5, 2), Fraction(-29, 12),
+        Fraction(-7, 3), Fraction(-9, 4), Fraction(-13, 6), Fraction(-25, 12),
+        Fraction(-2, 1), Fraction(-23, 12), Fraction(-11, 6), Fraction(-7, 4),
+        Fraction(-5, 3), Fraction(-19, 12), Fraction(-3, 2), Fraction(-17, 12),
+        Fraction(-4, 3), Fraction(-5, 4), Fraction(-7, 6), Fraction(-13, 12),
+        Fraction(-1, 1), Fraction(-11, 12), Fraction(-5, 6), Fraction(-3, 4),
+        Fraction(-2, 3), Fraction(-7, 12), Fraction(-1, 2), Fraction(-5, 12),
+        Fraction(-1, 3), Fraction(-1, 4), Fraction(-1, 6), Fraction(-1, 12),
+        Fraction(0, 1), Fraction(1, 12), Fraction(1, 6), Fraction(1, 4),
+        Fraction(1, 3), Fraction(5, 12), Fraction(1, 2), Fraction(7, 12),
+        Fraction(2, 3), Fraction(3, 4), Fraction(5, 6), Fraction(11, 12),
+        Fraction(1, 1), Fraction(13, 12), Fraction(7, 6), Fraction(5, 4),
+        Fraction(4, 3), Fraction(17, 12), Fraction(3, 2), Fraction(19, 12),
+        Fraction(5, 3), Fraction(7, 4), Fraction(11, 6), Fraction(23, 12),
+        Fraction(2, 1), Fraction(25, 12), Fraction(13, 6), Fraction(9, 4),
+        Fraction(7, 3), Fraction(29, 12), Fraction(5, 2), Fraction(31, 12),
+        Fraction(8, 3), Fraction(11, 4), Fraction(17, 6), Fraction(35, 12),
+        Fraction(3, 1), Fraction(37, 12), Fraction(19, 6), Fraction(13, 4),
+        Fraction(10, 3), Fraction(41, 12), Fraction(7, 2), Fraction(43, 12),
+        Fraction(11, 3), Fraction(15, 4), Fraction(23, 6), Fraction(47, 12),
+        Fraction(4, 1)
     ]
+    SCALAR_POOL = list(map(float, SCALAR_POOL))
 
     df_scalar_pool = pd.Series(
         data=SCALAR_POOL,
