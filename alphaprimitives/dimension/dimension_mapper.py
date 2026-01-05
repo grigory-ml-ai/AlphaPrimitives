@@ -212,7 +212,7 @@ class DimensionMapper:
         return x
 
 
-def apply_dimension_map_from_string(function_name: str, args: dict) -> Dimension:
+def apply_dim_map_from_string(function_name: str, args: dict) -> Dimension:
     function = list(filter(
         lambda x: x[0] == function_name,
         inspect.getmembers(DimensionMapper))
