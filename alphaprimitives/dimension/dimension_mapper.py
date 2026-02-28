@@ -1,5 +1,5 @@
 from __future__ import annotations
-
+from fractions import Fraction
 from alphaprimitives.dimension.dimension import Dimension
 import inspect
 from sympy import S
@@ -22,13 +22,14 @@ class DimensionMapper:
     def mul(x: Dimension, y: Dimension) -> Dimension:
         return x * y
 
+
     @staticmethod
     def div(x: Dimension, y: Dimension) -> Dimension:
         return x / y
 
     # --- Math: Nonlinear ---
     @staticmethod
-    def power(x: Dimension, v: float) -> Dimension:
+    def power(x: Dimension, v: float | Fraction) -> Dimension:
         return x ** v
 
     @staticmethod
@@ -153,26 +154,38 @@ class DimensionMapper:
 
     @staticmethod
     def greater_than(x: Dimension, y: Dimension) -> Dimension:
+        if x != y:
+            raise ValueError(f"Cannot compare two dimensions: {x} and {y}")
         return Dimension({})
 
     @staticmethod
     def greater_equal(x: Dimension, y: Dimension) -> Dimension:
+        if x != y:
+            raise ValueError(f"Cannot compare two dimensions: {x} and {y}")
         return Dimension({})
 
     @staticmethod
     def lower_than(x: Dimension, y: Dimension) -> Dimension:
+        if x != y:
+            raise ValueError(f"Cannot compare two dimensions: {x} and {y}")
         return Dimension({})
 
     @staticmethod
     def lower_equal(x: Dimension, y: Dimension) -> Dimension:
+        if x != y:
+            raise ValueError(f"Cannot compare two dimensions: {x} and {y}")
         return Dimension({})
 
     @staticmethod
     def equal(x: Dimension, y: Dimension) -> Dimension:
+        if x != y:
+            raise ValueError(f"Cannot compare two dimensions: {x} and {y}")
         return Dimension({})
 
     @staticmethod
     def not_equal(x: Dimension, y: Dimension) -> Dimension:
+        if x != y:
+            raise ValueError(f"Cannot compare two dimensions: {x} and {y}")
         return Dimension({})
 
     @staticmethod

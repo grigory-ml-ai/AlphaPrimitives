@@ -1,16 +1,21 @@
+import os
+from concurrent.futures import ThreadPoolExecutor
+from fractions import Fraction
+from pathlib import Path
+
 import pandas as pd
 from sqlalchemy import (
     Column, Integer, String, Text, Boolean, DateTime,
-    CheckConstraint, UniqueConstraint, ForeignKey, Numeric
+    CheckConstraint, UniqueConstraint, ForeignKey, Numeric,
+    BigInteger
 )
+from sqlalchemy import text
 from sqlalchemy.orm import declarative_base
 
 from alphaprimitives.sql.connection import ConnectionPostgres
-from fractions import Fraction
-
+from tqdm import tqdm
 Base = declarative_base()
 
-from sqlalchemy import text
 
 
 class Operator(Base):
@@ -48,6 +53,7 @@ class OperatorArg(Base):
     position = Column(Integer, nullable=False)
     arg_name = Column(String(64), nullable=False)
     kind = Column(String(64), nullable=False)
+    can_be_register = Column(Boolean, nullable=False)
     min_value = Column(Numeric)
     max_value = Column(Numeric)
 
@@ -71,32 +77,52 @@ class Scalar(Base):
     value = Column(Numeric, nullable=False)
 
 
-def create_tables(connection: ConnectionPostgres, reset: bool = False):
-    engine = connection.initialize_engine()
+class Futures(Base):
+    __tablename__ = 'futures'
+
+    open_time = Column(DateTime(timezone=True), nullable=False, primary_key=True)
+    ticker_name = Column(String(20), nullable=False, primary_key=True)
+    open = Column(Numeric(20, 10), nullable=True)
+    high = Column(Numeric(20, 10), nullable=True)
+    low = Column(Numeric(20, 10), nullable=True)
+    close = Column(Numeric(20, 10), nullable=True)
+    volume = Column(Numeric(30, 8), nullable=True)
+    close_time = Column(DateTime(timezone=True), nullable=True)
+    quote_volume = Column(Numeric(30, 8), nullable=True)
+    count = Column(BigInteger, nullable=True)
+    taker_buy_volume = Column(Numeric(30, 8), nullable=True)
+    taker_buy_quote_volume = Column(Numeric(30, 8), nullable=True)
+
+def push_operators(connection: ConnectionPostgres, reset: bool = True) -> None:
     if reset:
-        Base.metadata.drop_all(engine)
-    Base.metadata.create_all(engine)
+        connection.reset('operators')
+    connection.push(pd.read_json('operators.json'), table_name='operators')
 
 
-def upload_operators(connection: ConnectionPostgres) -> None:
-    connection.upload_df_to_db(pd.read_json('operators.json'), table_name='operators')
+def push_operator_args(connection: ConnectionPostgres, reset: bool = True) -> None:
+    if reset:
+        connection.reset('operator_args')
 
-
-def upload_operator_args(connection: ConnectionPostgres) -> None:
-    df_operators = connection.load_table('operators', columns=['operator_id', 'operator_name'])
+    df_operators = connection.fetch('operators', columns=['operator_id', 'operator_name'])
     df_operator_args: pd.DataFrame = (
         pd.read_json('operator_args.json')
         .merge(df_operators, on='operator_name', how='left')
         .drop(columns=['operator_name'])
     )
-    connection.upload_df_to_db(df_operator_args, table_name='operator_args')
+    connection.push(df_operator_args, table_name='operator_args')
 
 
-def upload_feature_pool(connection: ConnectionPostgres) -> None:
-    connection.upload_df_to_db(pd.read_json('feature_pool.json'), table_name='feature_pool')
+def push_feature_pool(connection: ConnectionPostgres, reset: bool = True) -> None:
+    if reset:
+        connection.reset('feature_pool')
+    connection.push(pd.read_json('feature_pool.json'), table_name='feature_pool')
 
 
-def upload_window_pool(connection: ConnectionPostgres) -> None:
+def push_window_pool(connection: ConnectionPostgres, reset: bool = True) -> None:
+    if reset:
+        connection.reset('window_pool')
+
+
     WINDOW_POOL = [
         3, 5, 6, 8, 10, 12, 14, 15, 18, 20,
         24, 26, 30, 36, 40, 48, 50, 52, 60,
@@ -107,10 +133,12 @@ def upload_window_pool(connection: ConnectionPostgres) -> None:
         data=WINDOW_POOL,
         name='value'
     ).to_frame()
-    connection.upload_df_to_db(df_window_pool, table_name='window_pool')
+    connection.push(df_window_pool, table_name='window_pool')
 
 
-def upload_scalar_pool(connection: ConnectionPostgres) -> None:
+def push_scalar_pool(connection: ConnectionPostgres, reset: bool = True) -> None:
+    if reset:
+        connection.reset('scalar_pool')
     SCALAR_POOL = [
         Fraction(-4, 1), Fraction(-47, 12), Fraction(-23, 6), Fraction(-15, 4),
         Fraction(-11, 3), Fraction(-43, 12), Fraction(-7, 2), Fraction(-41, 12),
@@ -144,18 +172,46 @@ def upload_scalar_pool(connection: ConnectionPostgres) -> None:
         data=SCALAR_POOL,
         name='value'
     ).to_frame()
-    connection.upload_df_to_db(df_scalar_pool, table_name='scalar_pool')
+    connection.push(df_scalar_pool, table_name='scalar_pool')
 
 
-def main(reset: bool = False):
-    connection = ConnectionPostgres()
-    create_tables(connection, reset)
-    upload_operators(connection)
-    upload_operator_args(connection)
-    upload_feature_pool(connection)
-    upload_window_pool(connection)
-    upload_scalar_pool(connection)
+def download_ticker(connection: ConnectionPostgres, filepath: Path) -> None:
+    try:
+        df = pd.read_parquet(filepath).drop(columns=['ignore'])
+        df['open_time'] = pd.to_datetime(df['open_time'], unit='ms')
+        df['close_time'] = pd.to_datetime(df['close_time'], unit='ms')
+        df['ticker_name'] = filepath.name.split('-')[0]
+        connection.push(df, table_name='futures')
+    except Exception as e:
+        print(e)
+
+
+#TODO: Выгрузить тикеры в базу при необходимости
+def push_futures(connection: ConnectionPostgres, folder: Path, reset: bool = False) -> None:
+    if reset:
+        connection.reset('futures')
+
+    ticker_names = connection.fetch("SELECT DISTINCT TICKER_NAME FROM FUTURES")
+    ticker_names = [] if ticker_names.empty else ticker_names['ticker_name'].tolist()
+
+    filepaths = [path for path in folder.glob('*.parquet')]
+    for filepath in tqdm(filepaths, total=len(filepaths)):
+        if filepath.name.split('-')[0] not in ticker_names:
+            download_ticker(connection, filepath)
+
+
+def main():
+
+    with ConnectionPostgres() as conn:
+        conn.create_all(Base)
+
+        # push_operators(conn, reset=True)
+        # push_operator_args(conn, reset=True)
+        # push_feature_pool(conn, reset=True)
+        # push_window_pool(conn, reset=True)
+        # push_scalar_pool(conn, reset=True)
+        push_futures(conn, folder=Path(r'C:\Users\LianLi\Desktop\trading'), reset=True)
 
 
 if __name__ == "__main__":
-    main(reset=True)
+    main()

@@ -41,7 +41,7 @@ class Dimension:
 
     def __sub__(self, other: 'Dimension') -> 'Dimension':
         if not isinstance(other, Dimension):
-            raise TypeError(f"unsupported operand type(s) for +: '{type(self)}' and {type(other)}")
+            raise TypeError(f"unsupported operand type(s) for -: '{type(self)}' and {type(other)}")
         if self != other:
             raise ValueError(f"cannot subtract because dimensions don't match")
         return Dimension(dict(self._base_units), self._max_denom)
@@ -68,7 +68,7 @@ class Dimension:
 
     def __str__(self) -> str:
         if not self._base_units:
-            return "1"
+            return "dimensionless"
         parts = []
         for k in sorted(self._base_units):  # фиксированный порядок
             p = self._base_units[k]
