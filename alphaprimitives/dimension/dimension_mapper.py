@@ -3,7 +3,9 @@ from fractions import Fraction
 from alphaprimitives.dimension.dimension import Dimension
 import inspect
 from sympy import S
+from beartype import beartype
 
+@beartype
 class DimensionMapper:
     # --- Math: Arithmetic ---
     @staticmethod
@@ -226,8 +228,7 @@ class DimensionMapper:
 
 
 def apply_dim_map_from_string(function_name: str, args: dict) -> Dimension:
-    function = list(filter(
-        lambda x: x[0] == function_name,
-        inspect.getmembers(DimensionMapper))
-    )[0][1]
+    function = getattr(DimensionMapper, function_name, None)
+    if function is None:
+        raise AttributeError(f"Метод {function_name} не найден в DimensionMapper")
     return function(**args)
